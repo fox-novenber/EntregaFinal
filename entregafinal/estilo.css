@@ -6,7 +6,7 @@ header,section,footer{
 
 header{
 	height: 80px;
-	background-color: #eebddb;
+	/* background-color: #eebddb; */
 	
 /* 	background: -moz-linear-gradient(top, #65b6cf , #2c2c2c 100px);
 	background:-webkit-linear-gradient(top, #65b6cf , #2c2c2c 100px); */
@@ -15,7 +15,7 @@ header{
 .banner{
 	display: block;
 	margin: auto;
-	background-color: #a857c4;
+	background-color: #b34789;
 	text-align: center;
 	margin: 0;
 	
@@ -37,64 +37,57 @@ h1{
 }
 
 #botonespricipales{
-	height: 80px;
-	/* width: 500px; */
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	float: right;
+	border-radius: 50px;
+	background-color: #eebddb;
+	position: relative;
+	margin-top: 10px;
+	margin-right: 5px;
+	height: 50px;  
 	}
 
 #botonespricipales ul {
 	margin: 0px;
 	padding: 0px;
 	list-style-type: none;
-	margin-top: 10px;
 	margin-left: 15px;
 }
 
 #botonespricipales ul li{
 	display: inline;
 	margin: 5px;
+	position: relative;
 	}
 
 #botonespricipales ul li a{
 	display: inline-block;
 	text-decoration: none;
 	color: #000000;
-	height: 50px;
-	/* width: 140px; */
-	text-align: center;
-	line-height: 50px;
-	font-family: arial;
-	font-weight: bold;
-	border-top-left-radius:13px;
-    border-top-right-radius:13px;
-    border-bottom-left-radius:13px;
-    border-bottom-right-radius:13px;
-}
-
-#botonespricipales ul li a:hover{
-	background-color:#99ff99;
-	-moz-box-shadow: 0px 0px 24px #ffff00;
-    -webkit-box-shadow: 0px 0px 24px #ffff00;
-    box-shadow: 0px 0px 24px #ffff00;
-    border:none;
-
-    transform: scale(0.95, 0.95);
-    -webkit-transform: scale(0.95, 0.95);
-    -moz-transform: scale(0.95, 0.95);
-    -o-transform: scale(0.95, 0.95);
-    -ms-transform: scale(0.95, 0.95);
-} 
-
-#principio { 
-	height: 180px;
-	text-align: center;
-	padding-top:0px;
-    background: -moz-linear-gradient(top, #65b6cf , #ffff33 100px);
-    background: -webkit-linear-gradient(top, #65b6cf , #ffff33 100px);
- 	background-image:url(imagenes/paisaje.png);
-}   
+	position: relative;
+	overflow: hidden;
 	
-
+}
+a:after {
+	content: "";
+	position: absolute;
+	bottom: 0;
+	left: -100%;
+	width: 100%;
+	height: 2px;
+	background: #eb59cb;
+	transition: left .8s;
+	}
+#botonespricipales ul li a:hover{
+	border-bottom: 3px solid #46083b
+	
+} 
+	
+	a:hover:after {
+	left: 0;
+	}
 
 
 

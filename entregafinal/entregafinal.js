@@ -44,24 +44,45 @@ stockproductos.forEach(elemento => {
     tarjetas.appendChild(tarjetita);
 });
 
-/* 
+mostrarCarrito();
+
 function mostrarCarrito() {
-    let carritoContainer = document.getElementById("carrito");
+    let carritoContainer = document.querySelector(".carrito-item");
     carritoContainer.innerHTML = "";
     carrito.forEach(item => {
         let itemCarrito = document.createElement("div");
         itemCarrito.className = "itemCarrito";
 
         itemCarrito.innerHTML = `
-            <h3>${item.producto }</h3>
-            <p>Precio: ${item.precio}$</p>
-            <p>Cantidad: ${item.cantidad}</p>
-            <button class="btn btn-primary" id = "${item.id}" />-</button>
-            <button class="btn btn-primary" id="${item.id}">+</button>
-            <button class="btn btn-primary" onclick="eliminarItem(${item.id})">Eliminar</button>
+        <div class="carrito-item">
+        <img src=${item.Imagen} alt="" width="30px">
+        <div class="carrito-item-detalles">
+            <spam class="carrito-item-titulo"> ${item.producto} </spam>
+            <div class="selector-cantidad">
+                <i class="fa-solid fa-minus restar-cantidad"></i>
+                <input type="number" value="${item.cantidad}"class="carrito-item-cantidad" disabled>
+                <i class="fa-solid fa-plus sumar-cantidad"></i>                                    
+            </div>
+            <span class="carrito-item-precio">${item.precio}</span>
+        </div>
+        <button class="btn btn-primary" onclick="eliminarItem(${item.id})">Eliminar <i class="fa-solid fa-trash"></i></button>
+    </div>
+        
         `;
         carritoContainer.appendChild(itemCarrito);
     });
+
+    let botonSumarCantidad = document.getElementsByClassName("sumar-cantidad");
+    for (let i = 0; i< carrito.length; i++) {
+        let boton = botonSumarCantidad[i];
+        boton.addEventListener('click',sumarCantidad)
+        }
+    
+        let botonRestarCantidad = document.getElementsByClassName("restar-cantidad");
+        for (let i = 0; i< carrito.length; i++) {
+            let boton = botonRestarCantidad[i];
+            boton.addEventListener('click',restarCantidad)
+            }
 
     // Guardar los datos del carrito en el Local Storage
     localStorage.setItem("carrito", JSON.stringify(carrito));
@@ -69,44 +90,7 @@ function mostrarCarrito() {
 
 function agregarAlCarrito(id) {
     let producto = stockproductos.find(item => item.id === id);
-    let itemCarrito = carrito.find(item => item.id === id);
-
-    if (itemCarrito) {
-        itemCarrito.cantidad++;
-    } else {
-        // Realizar una copia profunda del objeto producto
-        let nuevoProducto = JSON.parse(JSON.stringify(producto));
-        carrito.push({ ...nuevoProducto, cantidad: 1 });
-    }
-
-    mostrarCarrito();
-} */
-
-function mostrarCarrito() {
-    let carritoContainer = document.getElementById("carrito");
-    carritoContainer.innerHTML = "";
-    carrito.forEach(item => {
-        let itemCarrito = document.createElement("div");
-        itemCarrito.className = "itemCarrito";
-
-        itemCarrito.innerHTML = `
-        <h3>${item.producto}</h3>
-        <p>Precio: ${item.precio}$</p>
-        <p>Cantidad: ${item.cantidad}</p>
-        <button class="btn btn-primary btn-menos" data-id="${item.id}">-</button>
-        <button class="btn btn-primary btn-mas" data-id="${item.id}">+</button>
-        <button class="btn btn-primary" onclick="eliminarItem(${item.id})">Eliminar</button>
-        `;
-        carritoContainer.appendChild(itemCarrito);
-    });
-
-    // Guardar los datos del carrito en el Local Storage
-    localStorage.setItem("carrito", JSON.stringify(carrito));
-}
-
-function agregarAlCarrito(id) {
-    let producto = stockproductos.find(item => item.id === id);
-    let itemCarrito = carrito.find(item => item.id === id);
+    let itemCarrito = carrito.find(item => item.id === id); 
 
     if (itemCarrito) {
         itemCarrito.cantidad++;
@@ -126,33 +110,27 @@ function eliminarItem(id) {
         mostrarCarrito();
     }
 }
-function onBtnMasClick(event) {
-    let id = event.target.dataset.id;
-    let itemCarrito = carrito.find(item => item.id === id);
 
-    if (itemCarrito.cantidad < stockproductos.find(item => item.id === id).stock) {
-        itemCarrito.cantidad++;
-    }
 
-    mostrarCarrito();
+function sumarCantidad(event) {
+    
+    let botonClick = event.target;
+    let selector = botonClick.parentElement;
+    let cantidadActual = selector.getElementsByClassName("carrito-item-cantidad")[0].value;
+    console.log(cantidadActual );
+    cantidadActual++
+     selector.getElementsByClassName("carrito-item-cantidad")[0].value = cantidadActual;
+     onsole.log(cantidadActual)
+    mostrarCarrito() 
 }
-function onBtnMenosClick(event) {
-    let id = event.target.dataset.id;
-    let itemCarrito = carrito.find(item => item.id === id);
-
-    if (itemCarrito.cantidad > 0) {
-        itemCarrito.cantidad--;
-    }
-
-    mostrarCarrito();
-}
-function onBtnEliminarClick(event) {
-    let id = event.target.dataset.id;
-    let itemCarrito = carrito.find(item => item.id === id);
-
-    if (itemCarrito) {
-        carrito.splice(carrito.indexOf(itemCarrito), 1);
-    }
-
-    mostrarCarrito();
+function restarCantidad(event) {
+    
+    let botonClick = event.target;
+    let selector = botonClick.parentElement;
+    let cantidadActual = selector.getElementsByClassName("carrito-item-cantidad")[0].value;
+    console.log(cantidadActual );
+    cantidadActual--
+     selector.getElementsByClassName("carrito-item-cantidad")[0].value = cantidadActual;
+     onsole.log(cantidadActual)
+    mostrarCarrito() 
 }
